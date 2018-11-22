@@ -15,7 +15,7 @@ sudo cp cluster/cfc-certs/kubecfg.* ~/.kube/
 sudo chown -R $USER  ~/.kube/
 
 #Set kube config
-kubectl config set-cluster cfc-cluster --server=https://172.17.16.10:8001 --insecure-skip-tls-verify=true
+kubectl config set-cluster cfc-cluster --server=https://MASTER_HOSTNAMES[0]:8001 --insecure-skip-tls-verify=true
 kubectl config set-context kubectl --cluster=cfc-cluster
 kubectl config set-credentials user --client-certificate=$HOME/.kube/kubecfg.crt --client-key=$HOME/.kube/kubecfg.key
 kubectl config set-context kubectl --user=user

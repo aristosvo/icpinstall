@@ -25,20 +25,6 @@ done
 # Do we need this?
 sudo service iptables restart
 
-for ((i=0; i < $NUM_MASTERS; i++)); do
-  # Disable SELinux
-  # ssh ${SSH_USER}@${MASTER_HOSTNAMES[i]} sudo yum install -y iptables-services
-  # ssh ${SSH_USER}@${MASTER_HOSTNAMES[i]} sudo systemctl enable iptables
-  ssh ${SSH_USER}@${MASTER_HOSTNAMES[i]} sudo systemctl stop firewalld.service
-  for port in "${MASTER_PORTS[@]}"; do
-    ssh ${SSH_USER}@${MASTER_HOSTNAMES[i]} sudo iptables -A INPUT -p tcp -m tcp --sport $port -j ACCEPT
-    ssh ${SSH_USER}@${MASTER_HOSTNAMES[i]} sudo iptables -A OUTPUT -p tcp -m tcp --dport $port -j ACCEPT
-  done
-
-  # Do we need this?
-  ssh ${SSH_USER}@${MASTER_HOSTNAMES[i]} sudo service iptables restart
-done
-
 for ((i=0; i < $NUM_WORKERS; i++)); do
   # Disable SELinux
   # ssh ${SSH_USER}@${WORKER_HOSTNAMES[i]} sudo yum install -y iptables-services

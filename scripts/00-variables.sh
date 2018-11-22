@@ -28,16 +28,16 @@ export SSH_KEY=~/.ssh/id_rsa
 export SSH_USER=aommeren
 
 #export PUBLIC_IP=x.x.x.x
+export MASTER_HOSTNAMES=("mastertest.vs.ccloud.vs.lan")
 export MASTER_IPS=("172.17.16.10")
-export MASTER_HOSTNAMES=("icpmaster1")
 
 #WORKER_IPS[0] should be the same worker at WORKER_HOSTNAMES[0]
+export WORKER_HOSTNAMES=("workertest.vs.ccloud.vs.lan")
 export WORKER_IPS=("172.17.16.11")
-export WORKER_HOSTNAMES=("icpworker1")
 
 #PROXY
+export PROXY_HOSTNAMES=("proxytest.vs.ccloud.vs.lan")
 export PROXY_IPS=("172.17.16.12")
-export PROXY_HOSTNAMES=("icpproxy1")
 
 if [[ "${#MASTER_IPS[@]}" != "${#MASTER_HOSTNAMES[@]}" ]]; then
   echo "ERROR: Ensure that the arrays MASTER_IPS and MASTER_HOSTNAMES are of the same length"
@@ -54,12 +54,14 @@ if [[ "${#PROXY_IPS[@]}" != "${#PROXY_HOSTNAMES[@]}" ]]; then
   return 1
 fi
 
-export NUM_MASTERS=${#WORKER_IPS[@]}
-export NUM_WORKERS=${#WORKER_IPS[@]}
-export NUM_PROXYS=${#PROXY_IPS[@]}
+export NUM_MASTERS=${#WORKER_HOSTNAMES[@]}
+export NUM_WORKERS=${#WORKER_HOSTNAMES[@]}
+export NUM_PROXYS=${#PROXY_HOSTNAMES[@]}
 
 
 export ARCH="$(uname -m)"
 if [ "${ARCH}" != "x86_64" ]; then
   export INCEPTION_TAG="-${ARCH}"
 fi
+
+
