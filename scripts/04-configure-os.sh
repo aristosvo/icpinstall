@@ -15,7 +15,7 @@ sudo yum install -y ntpdate
 sudo ntpdate -s time.nist.gov
 
 # Start docker
-sudo service docker restart
+sudo service docker start
 
 for ((i=0; i < $NUM_WORKERS; i++)); do
   # Disable SELinux
@@ -30,7 +30,7 @@ for ((i=0; i < $NUM_WORKERS; i++)); do
   ssh ${SSH_USER}@${WORKER_HOSTNAMES[i]} sudo ntpdate -s time.nist.gov
 
   # Start docker
-  ssh ${SSH_USER}@${WORKER_HOSTNAMES[i]} sudo service docker restart
+  ssh ${SSH_USER}@${WORKER_HOSTNAMES[i]} sudo service docker start
 
 done
 
@@ -47,7 +47,7 @@ for ((i=0; i < $NUM_PROXYS; i++)); do
   ssh ${SSH_USER}@${PROXY_HOSTNAMES[i]} sudo ntpdate -s time.nist.gov
 
   # Start docker
-  ssh ${SSH_USER}@${PROXY_HOSTNAMES[i]} sudo service docker restart
+  ssh ${SSH_USER}@${PROXY_HOSTNAMES[i]} sudo service docker start
 
 done
 
